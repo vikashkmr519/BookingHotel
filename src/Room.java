@@ -8,16 +8,19 @@ public class Room {
 
     private int floorNum;
 
-    boolean roomStatus;
+    boolean roomEmpty;
 
     private Facility facility;
 
-    public Room(int roomNum, Occupancy occupancy, int floorNum, boolean roomStatus, Facility facility) {
+    private double price ;
+
+    public Room(int roomNum, Occupancy occupancy, int floorNum, boolean roomStatus, Facility facility,double price) {
         this.roomNum = roomNum;
         this.occupancy = occupancy;
         this.floorNum = floorNum;
-        this.roomStatus = roomStatus;
+        this.roomEmpty = roomStatus;
         this.facility = facility;
+        this.price = price;
     }
 
     public int getRoomNum() {
@@ -52,12 +55,12 @@ public class Room {
         this.floorNum = floorNum;
     }
 
-    public boolean isRoomStatus() {
-        return roomStatus;
+    public boolean isRoomEmpty() {
+        return roomEmpty;
     }
 
-    public void setRoomStatus(boolean roomStatus) {
-        this.roomStatus = roomStatus;
+    public void setRoomEmpty(boolean roomStatus) {
+        this.roomEmpty = roomStatus;
     }
 
     public Facility getFacility() {
@@ -66,5 +69,13 @@ public class Room {
 
     public void setFacility(Facility facility) {
         this.facility = facility;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

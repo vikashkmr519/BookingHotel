@@ -3,6 +3,8 @@ public class Customer {
     private int customerId;
     private  Occupancy occupancyRequired;
 
+    private int roomNum;
+
     public Customer(String name, int customerId, Occupancy occupancyRequired) {
         this.name = name;
         this.customerId = customerId;
@@ -33,5 +35,11 @@ public class Customer {
         this.occupancyRequired = occupancyRequired;
     }
 
+    public int getRoomNum() {
+        return roomNum;
+    }
 
+    public void setRoomNum(int roomNum) {
+        this.roomNum = roomNum;
+    }
 }

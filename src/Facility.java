@@ -5,7 +5,7 @@ import java.util.Set;
 public class Facility {
     private boolean AC;
 
-    public boolean isAC() {
+    public boolean getAC() {
         return AC;
     }
 

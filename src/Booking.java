@@ -23,7 +23,16 @@ public class Booking {
         this.bookingRequest = bookingRequest;
     }
 
-    public boolean completeBooking(){
-        return true;
+    public Room completeBooking(Inventory inventory) {
+        Room room = inventory.isRoomAvailable(this.getBookingRequest());
+        if (room != null) {
+            System.out.println("Room is Available. Assigning you the room :)");
+            this.customer.setRoomNum(room.getRoomNum());
+            inventory.addRoomToCustomer(room, this.customer);
+        }
+
+        return room;
     }
+
+
 }

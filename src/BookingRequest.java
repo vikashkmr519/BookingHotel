@@ -46,4 +46,14 @@ public class BookingRequest {
     public void setFloorNumber(int floorNumber) {
         this.floorNumber = floorNumber;
     }
+
+    @Override
+    public String toString() {
+        return "BookingRequest{" +
+                "name='" + name + '\'' +
+                ", occupancy=" + occupancy +
+                ", facility=" + facility +
+                ", floorNumber=" + floorNumber +
+                '}';
+    }
 }
