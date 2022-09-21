@@ -75,4 +75,12 @@ public class Inventory {
              this.customerMap.remove(customer.getCustomerId());
          }
     }
+
+    public Customer findCutomerWithId(int id){
+        if(customerMap.containsKey(id)){
+            return customerMap.get(id);
+        }else{
+            return null;
+        }
+    }
 }

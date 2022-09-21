@@ -5,6 +5,8 @@ public class Customer {
 
     private int roomNum;
 
+    private int duration;
+
     public Customer(String name, int customerId, Occupancy occupancyRequired) {
         this.name = name;
         this.customerId = customerId;
@@ -41,5 +43,13 @@ public class Customer {
 
     public void setRoomNum(int roomNum) {
         this.roomNum = roomNum;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 }

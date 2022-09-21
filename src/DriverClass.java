@@ -18,11 +18,18 @@ public class DriverClass {
         System.out.println("*****************************");
         Scanner sc = new Scanner(System.in);
 
+        Customer customer ;
+
+
         System.out.println("What's your name?");
         String customerName = sc.nextLine();
+        customer  = new Customer(customerName,new Random().nextInt(1000),null);
 
-        Customer customer = new Customer(customerName, Integer.valueOf(new Random().nextInt(1000)), null);
-        System.out.println("Hi.. " + customerName + " , happy to serve you :)");
+
+
+
+
+        System.out.println("Hi.. " + customer.getName() + " , happy to serve you :)");
         occupancyLabel:
         while (true) {
             System.out.println("which occupancy you required?");
@@ -66,7 +73,7 @@ public class DriverClass {
                     System.out.println("Please enter a valid Input");
             }
         }
-        BookingRequest bookingRequest = new BookingRequest(customerName, customer.getOccupancyRequired(), facility, 0);
+        BookingRequest bookingRequest = new BookingRequest(customer.getName(), customer.getOccupancyRequired(), facility, 0);
         floorLabel:
         while (true) {
             System.out.println("Which Floor Would you prefer?");
@@ -90,22 +97,43 @@ public class DriverClass {
             }
         }
 
-        //System.out.println(bookingRequest);
+        System.out.println("Duration of Stay in days");
+        int duration = sc.nextInt();
+
+        customer.setDuration(duration);
+        bookingRequest.setDuration(duration);
         Booking booking = new Booking(customer, bookingRequest);
         Room response = booking.completeBooking(inventory);
 
         if (response == null) {
-            //toh kuch issue hai handle here
             System.out.println("Sorry your requirement can not be satisfied");
+            StringBuilder sb = new StringBuilder("");
+            if(customer.getOccupancyRequired()!=null){
+                sb.append(customer.getOccupancyRequired()+" Occupancy ");
+            }
+            if(bookingRequest.getFloorNumber()!=0){
+                sb.append("on floor number "+bookingRequest.getFloorNumber()+" ");
+            }
+
+            if(bookingRequest.getFacility().getAC()){
+                sb.append("with AC facility");
+            }
+            sb.append("  is not Available");
+
+            System.out.println("*******************************");
+            System.out.println(sb.toString());
+            System.out.println("Please Try Again");
+            System.out.println("*******************************");
 
         } else {
             System.out.println("Please Complete the payment as final step..");
-            System.out.println("Type the amount showing here : " + response.getPrice() + " and you payment will be completed");
+            System.out.println("Type the amount showing here : " + response.getPrice()*customer.getDuration() + " and your payment will be completed");
             while (true) {
                 double amount = sc.nextDouble();
                 sc.nextLine();
 
-                if (amount != response.getPrice()) {
+
+                if (amount != (response.getPrice()*customer.getDuration())) {
                     System.out.println("Amount typed is not correct.");
                     System.out.println("Want to try again ?");
                     System.out.println("if Yes type yes");
@@ -115,13 +143,13 @@ public class DriverClass {
                         double amount2 = sc.nextDouble();
                         sc.nextLine();
 
-                        if (amount2 != response.getPrice()) {
+                        if (amount2 != (response.getPrice()*customer.getDuration())) {
                             System.out.println("Sorry your payment failed multiple time, please try later.");
                             inventory.onPaymentUnsuccessful(response, customer);
                             break;
                         } else {
                             System.out.println("Payment Successfull. :)");
-                            System.out.println("Please Enjoy your stay here " + customerName.toUpperCase());
+                            System.out.println("Please Enjoy your stay here " + customer.getName().toUpperCase());
                             break;
                         }
                     } else if (paymentTry.toUpperCase().equals("NO")) {
@@ -138,18 +166,26 @@ public class DriverClass {
 
                 } else {
                     System.out.println("Payment Successfull. :)");
-                    System.out.println("Please Enjoy your stay here " + customerName.toUpperCase());
+                    System.out.println("Please Enjoy your stay here " + customer.getName().toUpperCase());
                     System.out.println("Your room Details are : ->");
                     System.out.println("Room Number: " + response.getRoomNum());
+                    System.out.println("Floor Number: "+ response.getFloorNum());
                     System.out.println("Occupancy  : " + response.getOccupancy());
-                    System.out.println("AC         : " + response.getFacility().getAC());
-                    System.out.println("Thankyou " + customerName.toUpperCase());
+                    if(response.getFacility().getAC()){
+                        System.out.println("Air Conditioned!!");
+                    }
+                    System.out.println("Thankyou " + customer.getName().toUpperCase());
                     System.out.println("******************************************");
                     System.out.println();
                     break;
                 }
             }
         }
+
+        System.out.println();
+        System.out.println("----------------------------------------");
+        System.out.println("----------------------------------------");
+        System.out.println();
     }
 
     }

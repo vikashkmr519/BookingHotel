@@ -7,6 +7,7 @@ public class BookingRequest {
     private Occupancy occupancy;
     private Facility facility;
     private int floorNumber;
+    private int duration;
 
     public BookingRequest(String name, Occupancy occupancy, Facility facility, int floorNumber) {
         this.name = name;
@@ -55,5 +56,13 @@ public class BookingRequest {
                 ", facility=" + facility +
                 ", floorNumber=" + floorNumber +
                 '}';
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 }
